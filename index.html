@@ -1,1 +1,871 @@
-hi from Shan
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+        <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+        <title>Whizion - Transform Your Device Into An AI CCTV Camera</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                overflow-x: hidden;
+            }
+
+            /* Header & Navigation */
+            header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 1rem 0;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .logo img {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+            }
+
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: 2rem;
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .mobile-menu {
+                display: none;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            /* Hero Section */
+            .hero {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 120px 0 80px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+                background-size: cover;
+            }
+
+            .hero-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                animation: fadeInUp 1s ease;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+                animation: fadeInUp 1s ease 0.2s both;
+            }
+
+            .ai-badge {
+                display: inline-block;
+                background: linear-gradient(45deg, #ff6b6b, #feca57);
+                color: white;
+                padding: 0.5rem 1.5rem;
+                border-radius: 25px;
+                font-weight: bold;
+                margin-bottom: 2rem;
+                animation: pulse 2s infinite;
+            }
+
+            .cta-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                animation: fadeInUp 1s ease 0.4s both;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 1rem 2rem;
+                background: white;
+                color: #667eea;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn-secondary {
+                background: transparent;
+                color: white;
+                border: 2px solid white;
+            }
+
+            .btn-secondary:hover {
+                background: white;
+                color: #667eea;
+            }
+
+            /* Features Section */
+            .features {
+                padding: 80px 0;
+                background: #f8f9fa;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .section-title {
+                text-align: center;
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+                color: #333;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 3rem;
+            }
+
+            .feature-card {
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .feature-card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #667eea, #764ba2);
+            }
+
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: #333;
+            }
+
+            .feature-card p {
+                color: #666;
+                line-height: 1.8;
+            }
+
+            /* Use Cases Section */
+            .use-cases {
+                padding: 80px 0;
+                background: white;
+            }
+
+            .use-cases-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 3rem;
+                margin-top: 3rem;
+            }
+
+            .use-case {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                color: white;
+                padding: 2.5rem;
+                border-radius: 20px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .use-case::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 100%;
+                height: 200%;
+                background: radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    transparent 70%
+                );
+                animation: rotate 20s linear infinite;
+            }
+
+            .use-case:nth-child(2) {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .use-case:nth-child(4) {
+                background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+                color: #333;
+            }
+
+            .use-case:nth-child(5) {
+                background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+                color: #333;
+            }
+
+            .use-case:nth-child(6) {
+                background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            }
+
+            .use-case h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+                position: relative;
+                z-index: 2;
+            }
+
+            .use-case p {
+                font-size: 1.1rem;
+                line-height: 1.8;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Download Section */
+            .download {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 80px 0;
+                text-align: center;
+            }
+
+            .app-buttons {
+                display: flex;
+                gap: 1.5rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-top: 2rem;
+            }
+
+            .app-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem 2rem;
+                background: black;
+                color: white;
+                text-decoration: none;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                font-weight: bold;
+            }
+
+            .app-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .app-icon {
+                font-size: 2rem;
+            }
+
+            /* Footer */
+            footer {
+                background: #333;
+                color: white;
+                padding: 3rem 0 1rem;
+                text-align: center;
+            }
+
+            .footer-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .footer-section h3 {
+                margin-bottom: 1rem;
+                color: #667eea;
+            }
+
+            .footer-section p,
+            .footer-section a {
+                color: #ccc;
+                text-decoration: none;
+                line-height: 1.8;
+            }
+
+            .footer-section a:hover {
+                color: #667eea;
+            }
+
+            /* Animations */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .nav-links {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    background: rgba(102, 126, 234, 0.95);
+                    flex-direction: column;
+                    padding: 1rem;
+                    backdrop-filter: blur(10px);
+                }
+
+                .nav-links.active {
+                    display: flex;
+                }
+
+                .mobile-menu {
+                    display: block;
+                }
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+
+                .hero p {
+                    font-size: 1.1rem;
+                }
+
+                .cta-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .use-cases-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .app-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    text-align: center;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .hero {
+                    padding: 100px 0 60px;
+                }
+
+                .hero h1 {
+                    font-size: 2rem;
+                }
+
+                .section-title {
+                    font-size: 2rem;
+                }
+
+                .feature-card,
+                .use-case {
+                    padding: 1.5rem;
+                }
+
+                nav {
+                    padding: 0 1rem;
+                }
+
+                .container {
+                    padding: 0 1rem;
+                }
+            }
+
+            /* Accessibility */
+            @media (prefers-reduced-motion: reduce) {
+                * {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+
+            /* Focus states for keyboard navigation */
+            .btn:focus,
+            .nav-links a:focus,
+            .app-btn:focus {
+                outline: 2px solid #feca57;
+                outline-offset: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="logo">
+                <img src="favicon-32.png" alt="Whizion Logo">
+                Whizion
+            </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#download">Download</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Toggle navigation menu"
+                >
+                    ☰
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <div class="ai-badge">⚡ Powered by Advanced AI</div>
+                    <h1>
+                        Transform Your Device Into An Intelligent CCTV Camera
+                    </h1>
+                    <p>
+                        Turn any phone or tablet into a smart security camera
+                        with AI-powered monitoring. Upload existing videos or
+                        monitor live - our advanced AI finds exactly what you
+                        need in seconds. No setup required!
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#download" class="btn">📱 Get Started Now</a>
+                        <a href="#features" class="btn btn-secondary"
+                            >🔍 Learn More</a
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features">
+                <div class="container">
+                    <h2 class="section-title">🚀 Advanced AI Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <span class="feature-icon">📹</span>
+                            <h3>Upload & Search Videos</h3>
+                            <p>
+                                Already have footage? Upload any video and let
+                                our AI search through hours of content
+                                instantly. Find specific moments, people, or
+                                activities without watching everything.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🧠</span>
+                            <h3>Smart AI Detection</h3>
+                            <p>
+                                Our cutting-edge AI algorithms can identify
+                                specific objects, people, and activities in
+                                real-time or in uploaded videos. Customize what
+                                you want to monitor with unprecedented accuracy.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">⚡</span>
+                            <h3>Zero Setup Required</h3>
+                            <p>
+                                Simply install the app and start monitoring
+                                instantly. No complicated configurations, no
+                                technical knowledge needed. AI handles
+                                everything automatically.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">📱</span>
+                            <h3>Any Device, Anywhere</h3>
+                            <p>
+                                Works seamlessly on phones, tablets, and iPads.
+                                Transform any device into a professional-grade
+                                security camera with AI-powered intelligence.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🎯</span>
+                            <h3>Custom Monitoring</h3>
+                            <p>
+                                Tell our AI exactly what to watch for. From
+                                specific people to unusual activities, our
+                                advanced machine learning adapts to your unique
+                                needs.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🔔</span>
+                            <h3>Instant Alerts</h3>
+                            <p>
+                                Get real-time notifications when our AI detects
+                                what you're monitoring. Smart filtering ensures
+                                you only get alerts that matter.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">☁️</span>
+                            <h3>Cloud AI Processing</h3>
+                            <p>
+                                Leverages powerful cloud-based AI for superior
+                                detection accuracy. Your device stays
+                                lightweight while AI does the heavy lifting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="use-cases" class="use-cases">
+                <div class="container">
+                    <h2 class="section-title">🎯 Perfect For Every Need</h2>
+                    <div class="use-cases-grid">
+                        <div class="use-case">
+                            <h3>👶 Baby Monitoring</h3>
+                            <p>
+                                Keep your little one safe with AI that
+                                recognizes crying, movement, and sleep patterns.
+                                Get instant alerts when your baby needs
+                                attention, even from another room. Our advanced
+                                AI learns your baby's routines and provides
+                                personalized insights.
+                            </p>
+                        </div>
+                        <div class="use-case">
+                            <h3>🏢 Business Operations</h3>
+                            <p>
+                                Optimize workplace efficiency with intelligent
+                                monitoring. AI can identify bottlenecks in
+                                workflows, track safety compliance, monitor
+                                customer service quality, and analyze
+                                operational patterns. Perfect for improving
+                                productivity and maintaining professional
+                                standards.
+                            </p>
+                        </div>
+                        <div class="use-case">
+                            <h3>🏠 Home Security</h3>
+                            <p>
+                                Protect your home with AI-powered intruder
+                                detection. Our system distinguishes between
+                                family members, pets, and potential threats. Get
+                                instant alerts for suspicious activity while
+                                filtering out false alarms from everyday
+                                movements.
+                            </p>
+                        </div>
+                        <div class="use-case">
+                            <h3>😄 Funny Moments</h3>
+                            <p>
+                                Upload family videos, pet footage, or any
+                                content and let AI find the hilarious moments
+                                automatically! Search for "funny pet reactions,"
+                                "kids being silly," or any memorable moments you
+                                want to relive and share with friends.
+                            </p>
+                        </div>
+                        <div class="use-case">
+                            <h3>🎬 Content Creation</h3>
+                            <p>
+                                Upload hours of raw footage and instantly find
+                                the best clips for your projects. AI can
+                                identify specific scenes, emotions, activities,
+                                or objects, making video editing and content
+                                creation incredibly efficient.
+                            </p>
+                        </div>
+                        <div class="use-case">
+                            <h3>🚀 Your Ideas</h3>
+                            <p>
+                                These are just the beginning! With our flexible
+                                AI technology, the possibilities are endless. We
+                                can't wait to see what creative use cases you'll
+                                come up with. Upload any video and let AI help
+                                you discover what you're looking for!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="download" class="download">
+                <div class="container">
+                    <h2 class="section-title">📱 Download Whizion</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem">
+                        Get started in seconds with our powerful AI-powered
+                        monitoring app
+                    </p>
+                    <div class="app-buttons">
+                        <a href="#" class="app-btn">
+                            <span class="app-icon">📱</span>
+                            <div>
+                                <div style="font-size: 0.8rem">
+                                    Download on the
+                                </div>
+                                <div>App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="app-btn">
+                            <span class="app-icon">🤖</span>
+                            <div>
+                                <div style="font-size: 0.8rem">Get it on</div>
+                                <div>Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contact">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>🤖 Whizion</h3>
+                        <p>
+                            Transforming everyday devices into intelligent
+                            security cameras with the power of advanced
+                            artificial intelligence. Visit us at Whizion.cam
+                        </p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>📞 Contact</h3>
+                        <p>Email: support@whizion.cam</p>
+                        <p>Website: Whizion.cam</p>
+                        <p>Support: 24/7 AI-powered assistance</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>🔗 Quick Links</h3>
+                        <p><a href="#features">Features</a></p>
+                        <p><a href="#use-cases">Use Cases</a></p>
+                        <p><a href="#download">Download</a></p>
+                        <p><a href="#">Privacy Policy</a></p>
+                    </div>
+                </div>
+                <p
+                    style="
+                        border-top: 1px solid #555;
+                        padding-top: 1rem;
+                        margin-top: 2rem;
+                    "
+                >
+                    © 2025 Whizion. All rights reserved. Powered by Advanced AI
+                    Technology.
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById("mobileMenu");
+            const navLinks = document.getElementById("navLinks");
+
+            mobileMenu.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(
+                        this.getAttribute("href"),
+                    );
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                        // Close mobile menu if open
+                        navLinks.classList.remove("active");
+                    }
+                });
+            });
+
+            // Add scroll effect to header
+            let lastScrollTop = 0;
+            const header = document.querySelector("header");
+
+            window.addEventListener("scroll", () => {
+                const scrollTop =
+                    window.pageYOffset || document.documentElement.scrollTop;
+
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    header.style.transform = "translateY(-100%)";
+                } else {
+                    header.style.transform = "translateY(0)";
+                }
+
+                lastScrollTop = scrollTop;
+            });
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px",
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation =
+                            "fadeInUp 0.8s ease forwards";
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards and use cases
+            document
+                .querySelectorAll(".feature-card, .use-case")
+                .forEach((el) => {
+                    observer.observe(el);
+                });
+
+            // Add loading states for app buttons
+            document.querySelectorAll(".app-btn").forEach((btn) => {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const originalText = this.innerHTML;
+                    this.innerHTML =
+                        '<span class="app-icon">⏳</span><div><div>Loading...</div><div>Please wait</div></div>';
+
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        alert(
+                            "App download would start here! (This is a demo)",
+                        );
+                    }, 2000);
+                });
+            });
+
+            // Add dynamic AI badge animation
+            const aiBadge = document.querySelector(".ai-badge");
+            if (aiBadge) {
+                setInterval(() => {
+                    aiBadge.style.background = `linear-gradient(45deg,
+                    hsl(${Math.random() * 360}, 70%, 60%),
+                    hsl(${Math.random() * 360}, 70%, 60%)
+                )`;
+                }, 3000);
+            }
+        </script>
+    </body>
+</html>
